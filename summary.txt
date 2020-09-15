@@ -1,0 +1,281 @@
+
+Report
+======
+
+The following is a simple report summarizing the contents of the given
+database (./etc/patents.db). By reading the report you will garner an
+understanding of the nature the collected patents. By studying the file
+which created this report (./etc/queries.sql) you will begin to learn
+how to use the Structured Query Language (SQL) to create your own
+reports.
+
+                                                                     --
+                                     Eric Lease Morgan <emorgan@nd.edu>
+                                                     September 15, 2020
+
+
+Database schema
+---------------
+CREATE TABLE titles (
+
+	id     INTEGER primary key,
+	year   INTEGER,
+	title  TEXT
+	
+);
+CREATE TABLE words  (
+
+	id     INTEGER primary key,
+	year   INTEGER,
+	words  TEXT
+	
+);
+CREATE TABLE scores  (
+
+	id     INTEGER primary key,
+	year   INTEGER,
+	score  FLOAT
+	
+);
+
+Total number of records
+-----------------------
+11752397
+
+Total number of records for each year; chart this to visualize our 'inventiveness'.
+-----------------------------------------------------------------------------------
+1899	23351
+1900	25282
+1901	28336
+1902	30615
+1903	28916
+1904	33045
+1905	34427
+1906	34702
+1907	35840
+1908	36307
+1909	37551
+1910	35511
+1911	37254
+1912	38495
+1913	37978
+1914	38469
+1915	38317
+1916	38392
+1917	35704
+1918	26527
+1919	37879
+1920	43889
+1921	45865
+1922	43830
+1923	40597
+1924	41844
+1925	44359
+1926	45156
+1927	48042
+1928	47171
+1929	46723
+1930	46688
+1931	44320
+1932	39069
+1933	34017
+1934	35237
+1935	36539
+1936	38749
+1937	39947
+1938	41375
+1939	40731
+1940	40355
+1941	35195
+1942	29531
+1943	28492
+1944	32131
+1945	36716
+1946	40543
+1947	38371
+1948	36945
+1949	37356
+1950	37574
+1951	34258
+1952	35507
+1953	39597
+1954	43814
+1955	44880
+1956	44171
+1957	44110
+1958	46739
+1959	47239
+1960	47026
+1961	47913
+1962	51361
+1963	54617
+1964	57273
+1965	63079
+1966	60065
+1967	59991
+1968	63458
+1969	65216
+1970	65958
+1971	66395
+1972	63369
+1973	66310
+1974	66522
+1975	65939
+1976	66032
+1977	66192
+1978	66068
+1979	67048
+1980	68437
+1981	65855
+1982	67059
+1983	63910
+1984	69465
+1985	74323
+1986	78288
+1987	85031
+1988	94897
+1989	102071
+1990	107143
+1991	110186
+1992	115837
+1993	121714
+1994	138960
+1995	162505
+1996	166426
+1997	194820
+1998	198594
+1999	217523
+2000	252238
+2001	320169
+2002	327331
+2003	343749
+2004	388642
+2005	424395
+2006	413335
+2007	417408
+2008	405449
+2009	376977
+2010	391947
+2011	419932
+2012	446716
+2013	456974
+2014	353051
+2015	150638
+
+List of top 10 duplicate titles; are we sure the original data is valid?
+------------------------------------------------------------------------
+5100	Semiconductor device
+4840	Container
+4046	Image forming apparatus
+3186	Valve
+3077	Display device
+3071	Electrical connector
+3049	Bottle
+2602	Chair
+2522	TYPE-WRITING MACHINE
+2340	Internal combustion engine
+
+List of 10 patents with the title of 'Internal combustion engine'
+-----------------------------------------------------------------
+48010239	1916	Internal combustion engine
+49538884	1919	Internal combustion engine
+49806654	1919	Internal combustion engine
+50552627	1920	Internal combustion engine
+50848382	1920	Internal combustion engine
+51464637	1921	Internal combustion engine
+51529113	1921	Internal combustion engine
+51704647	1922	Internal combustion engine
+52298389	1923	Internal combustion engine
+52319360	1923	Internal combustion engine
+
+Total number of 'unique' patents (scores = 0)
+---------------------------------------------
+852
+
+Total number of 'completely un-unique' patents (scores = 1)
+-----------------------------------------------------------
+6095
+
+List of 25 LEAST unique scores and the number of patents with that score
+------------------------------------------------------------------------
+1.0	6095
+0.954545454545455	1
+0.947368421052632	2
+0.941176470588235	1
+0.9375	3
+0.933333333333333	3
+0.928571428571429	6
+0.923076923076923	15
+0.916666666666667	19
+0.909090909090909	33
+0.9	51
+0.888888888888889	73
+0.875	137
+0.866666666666667	2
+0.857142857142857	176
+0.846153846153846	7
+0.833333333333333	220
+0.818181818181818	16
+0.8	336
+0.785714285714286	1
+0.777777777777778	30
+0.769230769230769	4
+0.764705882352941	1
+0.75	399
+0.727272727272727	4
+
+List of 25 MOST unique scores and the number of patents with that score
+-----------------------------------------------------------------------
+0.0	852
+0.142857142857143	1
+0.2	5
+0.25	34
+0.285714285714286	1
+0.333333333333333	129
+0.4	21
+0.428571428571429	4
+0.444444444444444	2
+0.5	697
+0.555555555555556	3
+0.571428571428571	14
+0.583333333333333	1
+0.6	64
+0.625	4
+0.636363636363636	1
+0.666666666666667	487
+0.692307692307692	1
+0.7	5
+0.714285714285714	38
+0.727272727272727	4
+0.75	399
+0.764705882352941	1
+0.769230769230769	4
+0.777777777777778	30
+
+Random list of 10 'un-unique' patents with their identifiers and years
+----------------------------------------------------------------------
+46537498	1998	Single station covering and fastening system
+47141733	1926	Hinge construction
+47015384	1906	BUCKLE
+46185814	1993	Ergonomic machine actuator
+47171827	1979	Improved strap guide system
+45609852	2001	METHOD AND SYSTEM OF TRANSMITTING OPTICAL SIGNALS GENERATED BY MULTI-LINE SOURCES VIA WDM OPTICAL NETWORK
+46017692	2001	Dispenser package
+46092051	2005	Methods and apparatus providing security to computer systems and networks
+46363944	2002	Credit authorization system and method
+45844458	1998	Continuous dryer for flat workpieces
+
+Random list of 10 'unique' patents with their identifiers and years
+-------------------------------------------------------------------
+46742901	1901	RAIL-JOINT
+46761560	1901	SEEDING-MACHINE
+46866107	1903	PACKAGE-CARRIER
+46697372	1900	ARM-REST FOR FIREARMS
+46857252	1902	SPEED-GOVERNOR
+46655207	1899	ELECTRIC FURNACE
+46770430	1901	MANUFACTURE OF CHEESE
+47070076	1907	CAR-UNDERFRAME
+46663082	1899	WHEEL-FRAME FOR PLOWS OR CULTIVATORS
+46667090	1899	DIAMIDODIPHENYLAMIN SULFONIC ACID AND PROCESS OF MAKING SAME
+
+

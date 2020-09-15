@@ -1,0 +1,63 @@
+From: Eric Lease Morgan <emorgan@nd.edu>
+Subject: Re: Python Code Question [patents, inventors, and education]
+Date: September 10, 2020 at 11:50:24 AM EDT
+To: Colin Davison <cdaviso1@nd.edu>, Daniel Johnson <djohns27@nd.edu>
+
+
+On Sep 9, 2020, at 4:21 PM, Colin Davison <cdaviso1@nd.edu> wrote:
+
+Here is a brief explanation of the task/research project.  As part of a larger project on how education impacts the likelihood that someone becomes an inventor, we are wanting to do analysis on each patent title in order to analyze how unique that patent is.  To do this, we go through various steps which you can see in the Python code I have attached.
+
+ 1. Import data
+ 2. Clean patent titles
+ 3. Create lists that will be searched over later
+ 4. Split each patent title into one, two, and three word n-grams
+ 5. For each n-gram in #4 search over the lists created in #3 to
+    see if that n-gram ever appears in the patent record previously
+                                                         ^^^^^^^^^^
+ 6. Based on the results of #5 indicate whether the patent is unique
+ 7. Zip up and export out results
+
+The issue is scaling up #5 since as the number of n-grams increases, the task of searching over them increases O^2.  For example, to complete up to the first step of #5 in a 1% sample takes 10 minutes on the CRC.  For a 5% sample it takes around 4 hours.  Dr. Johnson identified that the problem may be in the for loops that I use in step #5.  For loops are apparently very inefficient in Python.  I have tried to figure out a way to use native numpy operations (np.where, np.unique, etc...) and numpy arrays instead of for loops and lists, but I have been unable to figure out how that sort of code could work.
+
+A couple notes:
+
+ 1. I have included google drive links to 1, 5, and 15% samples of the data.
+    I am currently uploading the full data to google drive, and I will forward
+    you the link when that is done.  
+
+ 2. I changed the code to be more efficient for the one-word n-grams and I have
+    commented out everything below that because I have not taken the time to
+    apply those changes to the two-word and three-word n-grams.  My thought is
+    that if we can figure out how to run the code efficiently up until the
+    commented out point then it will be a trivial step to apply this to the other
+    n-grams loops.
+
+ 3. You will need to change your directory and the title of the file in Step #1
+    to get the code working.
+
+Thanks again for your willingness to take a look!!!  I appreciate any help you can provide.
+
+--
+Colin Davison
+
+
+Colin, again, very interesting. It seems your immediate goal is to measure (determine) how unique a patent it; create a list of unique patents. While my initial question may seem naive, I'll ask it anyway. Aren't all patents expected to be unique? How do you want to denote uniqueness? Your definition is rooted in the words used in titles? Correct? If so, then please elaborate.
+
+Just to clarify, and again, this is much easier on the telephone, you have four datasets, but the later three are merely subsets of the first -- the whole. You have created smaller subsets in the hopes of speeding up processing. The whole contains three columns/fields (key, date, and title), and there are about 1.1 million rows (records). Nice and clean. Very manageable.
+
+Processing takes a long long time because you have many nested loops. This is not an issue with Python, per se. It is a time sink in any programming language. And yes, the problem is compounded because you have ngrams of increasing size.
+
+At first blush, and cast in the lingo of computer science, your's seems to be an information retrieval problem. Given a set of documents, find a subset of documents matching a query. Your application does much of the classic work: 1) read data, 2) clean/normalize it, 3) stuff the result into a data structure, 4) query the data structure, and 5) output the result. You could probably improve your processing in a couple of ways: 1) break your one big program into a number of smaller programs, and 2) stuff your data into a different data structure (such as a relational database and/or full text index). 
+
+Once you get a list of unique patents, what's the next step? What's the bigger picture? Your data only includes keys, dates, and titles. How are you going to relate these things to inventors and education?
+
+Yes, a telephone chat tomorrow (Friday) works for me too. Let's talk tomorrow at 10:30? What's your number? Call me? 
+
+-- 
+Eric Lease Morgan
+Digital Initiatives Librarian, Navari Family Center for Digital Scholarship
+
+574/485-6870
+
+

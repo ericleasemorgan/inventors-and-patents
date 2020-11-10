@@ -2,3 +2,4 @@ etc/patents.db
 etc/patents.csv
 etc/integer.eml
 x-*
+tmp/

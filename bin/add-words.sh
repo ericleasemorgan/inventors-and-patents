@@ -12,7 +12,9 @@
 TSV="./tmp/words.tsv"
 DB='./etc/patents.db'
 TABLE='words'
+PATTERN='normalized-titles_'
 
+cat ./tmp/$PATTERN* > $TSV
 
 # do the work and done
 echo "DELETE FROM $TABLE;" | sqlite3 $DB

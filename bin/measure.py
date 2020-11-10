@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/afs/crc.nd.edu/user/e/emorgan//local/anaconda/bin/python
 
 # measure.py - given the words from a patent title, calculate a uniqueness score
 
@@ -16,38 +16,64 @@ SQL = "SELECT COUNT( id ) FROM words WHERE words LIKE '%%%s%%' AND year < '%s'"
 import sqlite3
 import sys
 
-# get the input and parse it
-fields = sys.argv[ 1 ].split( '\t' )
-key    = fields[ 0 ]
-year   = fields[ 1 ]
-words  = fields[ 2 ].split()
+# sanity check
+if len( sys.argv ) != 2 :
+	sys.stderr.write( 'Usage: ' + sys.argv[ 0 ] + " <file>\n" )
+	exit()
+
+# get input
+file = sys.argv[ 1 ]
 
 # initialize database connection
 connection = sqlite3.connect( DB )
 cursor     = connection.cursor()
 
-# initialize scoring
-sum = 0
-total = len( words )
+# open the given file
+with open ( file ) as handle :
 
-# process each word
-for word in words :
+	# initialize
+	record = handle.readline()
+	record = record.rstrip()
 
-	# get the number of times the word was previously used
-	cursor.execute( SQL % ( word, year ) )
-	count = cursor.fetchone()[ 0 ]
+	# process the record
+	while record :
 	
-	# debug
-	#print( "\t".join( ( str( count ), word ) ) )
+		# get the input and parse it
+		fields = record.split( '\t' )
+		key    = fields[ 0 ]
+		year   = fields[ 1 ]
+		words  = fields[ 2 ].split()
+
+
+		# initialize scoring
+		sum = 0
+		total = len( words )
+
+		# process each word
+		for word in words :
+
+			# get the number of times the word was previously used
+			cursor.execute( SQL % ( word, year ) )
+			count = cursor.fetchone()[ 0 ]
 	
-	# update the sum, conditionally
-	if count > 0 : sum = sum + 1
+			# update the sum, conditionally
+			if count > 0 : sum = sum + 1
 
-# calculate uniqueness
-uniqueness = sum / total
+			# debug
+			#print( "\t".join( ( str( count ), word, str( sum ) ) ) )
+	
+		# calculate uniqueness
+		uniqueness = sum / total
 
-# output and done
-print( "\t".join( ( str( key ), str( year ), str( uniqueness ) ) ) )
+		# output and done
+		print( "\t".join( ( str( key ), str( year ), str( uniqueness ) ) ) )
+
+		# initialize
+		record = handle.readline()
+		record = record.rstrip()
+
+
+# done
 exit
 
 

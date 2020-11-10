@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# measure.qsub - a front-end to measure.py
+
+# configure qsub
+#$ -N MEASURE
+#$ -t 1-100
+#$ -o ./log
+
+# configure bash
+PREFIX='measure-inputs.'
+TMP='./tmp'
+
+# get a list of all the files to process
+readarray -t FILES < <( find $TMP -name "$PREFIX*" )
+
+# using the given task identifier ($SGE_TASK_ID), compute an array element
+ITEM=$(($SGE_TASK_ID-1))
+
+# do the work and done
+./bin/measure.py ${FILES[$ITEM]} > $TMP/measured-titles_$ITEM.tsv
+exit
+

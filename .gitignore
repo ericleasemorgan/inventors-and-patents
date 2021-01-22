@@ -3,3 +3,4 @@ etc/patents.csv
 etc/integer.eml
 x-*
 tmp/
+log/
